@@ -143,14 +143,16 @@ fun DogItem(
                 DogIcon(dog.imageResourceId)
                 DogInformation(dog.name, dog.age)
                 Spacer(modifier = Modifier.weight(1f))
-                DogItemButton(expanded = expanded, onClick = { /*TODO*/ })
+                DogItemButton(expanded = expanded, onClick = { expanded = !expanded })
             }
-            DogHobby(dog.hobbies,
-                modifier = Modifier.padding(
-                    start = dimensionResource(R.dimen.padding_medium),
-                    top = dimensionResource(R.dimen.padding_small),
-                    end = dimensionResource(R.dimen.padding_medium),
-                    bottom = dimensionResource(R.dimen.padding_medium)))
+            if(expanded){
+                DogHobby(dog.hobbies,
+                    modifier = Modifier.padding(
+                        start = dimensionResource(R.dimen.padding_medium),
+                        top = dimensionResource(R.dimen.padding_small),
+                        end = dimensionResource(R.dimen.padding_medium),
+                        bottom = dimensionResource(R.dimen.padding_medium)))
+            }
         }
 
     }
@@ -182,7 +184,7 @@ fun DogItemButton(   expanded: Boolean,
                      modifier: Modifier = Modifier){
     IconButton(onClick = onClick, modifier = modifier) {
         Icon(
-            imageVector = Icons.Filled.ExpandMore,
+            imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
             contentDescription = stringResource(R.string.expand_button_content_description),
             tint = MaterialTheme.colorScheme.secondary
         )
